@@ -4,7 +4,6 @@ app = Flask("projeto")
 
 @app.route("/")
 def ola_mundo():
-    return "Olá Mundo! Esse é o meu primeiro projeto Flask!!"
-200
+    return "Olá Mundo! Esse é o meu primeiro projeto Flask!!", 200
 
 app.run()
