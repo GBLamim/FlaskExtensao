@@ -3,12 +3,19 @@
     <head>
         <meta charset='utf-8'>
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Título da Página</title>
+        <title>Array do {{ n }}</title>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
         <!--link rel='stylesheet' type='text/css' media='screen' href='main.css'>
         <script src='main.js'></script-->
     </head>
     <body>
-        Olá! Vamos usar o Jinja2 para arquivos HTML.
+        <table border="1">
+            {% for val in a%}
+            <tr>
+                <td>{{ val.nome }}</td>
+                <td>{{ val.valor }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </body>
 </html>
