@@ -9,8 +9,9 @@ app = Flask("projeto")
 @app.route("/")
 def index():
     nome = "Lamim"
+    produto = "PlayStation"
     array = [{"nome":"PS2","valor":"R$ 1200,00"},{"nome":"PS3","valor":"R$ 2100,00"},{"nome":"PS4","valor":"R$ 4000,00"}]
-    return render_template("index.html", n = nome, a = array), 200
+    return render_template("index.html", p = produto, n = nome, a = array), 200
 
 if __name__ == "__main__":
     app.run()
