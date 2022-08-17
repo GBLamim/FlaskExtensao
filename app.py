@@ -30,9 +30,15 @@ def form():
     return render_template("form.html"), 200
 
 #Rote recebe formulário
-@app.route("/form_recebe")
+@app.route("/form_recebe", methods=["GET", "POST"])
 def form_recebe():
-    return '', 200
+    if request.method == "POST":
+        nome = request.form["nome"]
+        sobrenome = request.form["sobrenome"]
+        # return "Nome: {}".format(nome)
+        return nome + ' ' + sobrenome, 200
+    else:
+        return 'Chamada GET não suportada', 200
 
 @app.errorhandler(404)
 def handle_404(e):
