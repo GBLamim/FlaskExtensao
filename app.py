@@ -1,6 +1,8 @@
 # coding: utf-8
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 app = Flask("projeto")
+#Criando uma chave de criptografia
+app.secret_key = "chave_que_deve_ficar_em_segredo__nao_se_deve_subir_no_git"
 
 '''@app.route("/")
 def ola_mundo():
@@ -39,6 +41,35 @@ def form_recebe():
         return nome + ' ' + sobrenome, 200
     else:
         return 'Chamada GET não suportada', 200
+
+#Rota form de Login
+@app.route("/login")
+def login():
+    return render_template("login.html"), 200
+
+#Rota de validação de Login
+@app.route("/login_validar", methods=["GET", "POST"])
+def login_validar():
+    if request.method == "POST":
+        if request.form["login"] == "lamim" and request.form["senha"] == "aula":
+            session["usuario"] = request.form["login"]
+            session["codigo"] = 1
+            return redirect(url_for("acesso_restrito")) #"logado", 200
+        else:
+            return "Usuário ou Senha Incorreta", 200
+    else:
+        if session["usuario"] == "lamim" and session["codigo"] == 1:
+            return redirect(url_for("acesso_restrito")) #"logado", 200
+        else:
+            return "Necessário fazer login", 200
+
+#Rota de acesso restrito (área logado)
+@app.route("/restrito")
+def acesso_restrito():
+    if session["codigo"] == 1:
+        return "Bem-vindo à area restrita!!<br>Usuário: {}<br>Código: {}".format(session["usuario"], session["codigo"]), 200
+    else:
+        return "Acesso inválido!", 200
 
 @app.errorhandler(404)
 def handle_404(e):
